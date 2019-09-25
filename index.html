@@ -1,0 +1,20 @@
+<html>
+  <script src="./node_modules/zone.js/dist/zone.js"></script>
+  <script>
+    let i;
+    window.addEventListener("unhandledrejection", event => {
+      console.warn(
+        `UNHANDLED PROMISE REJECTION: ${event.reason}, ${event.promise}`
+      );
+    });
+
+    const w = new WritableStream();
+    const s = new ReadableStream({
+      start(controller) {
+        controller.enqueue("");
+        controller.close();
+      }
+    });
+    i = s.pipeTo(w);
+  </script>
+</html>
